@@ -1,0 +1,824 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>סלובקיה 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ===================== Design tokens ===================== */
+:root{
+  --paper:#f4f1e6;
+  --paper-raised:#fdfcf7;
+  --ink:#1e2a1f;
+  --ink-soft:#516050;
+  --ink-faint:#7c8577;
+  --forest:#2f5233;
+  --forest-deep:#1c3320;
+  --moss:#6f8f5c;
+  --rust:#b8592e;
+  --rust-soft:#e9d3c3;
+  --water:#2f6f8f;
+  --water-soft:#d7e6ec;
+  --stone:#8a8570;
+  --line:#ded6bf;
+  --shadow: 0 1px 2px rgba(30,42,31,.06), 0 6px 20px -8px rgba(30,42,31,.18);
+  --easy-bg:#dfe9d2; --easy-fg:#3c5c2e;
+  --med-bg:#f3e3c4; --med-fg:#8a5a1a;
+  --hard-bg:#f0d5cf; --hard-fg:#a13d21;
+  --r-raj-bg:#dfe9d2; --r-raj-fg:#3c5c2e;
+  --r-ht-bg:#d7e6ec; --r-ht-fg:#1f5674;
+  --r-lt-bg:#e4ddf0; --r-lt-fg:#5b4a8a;
+  --r-fatra-bg:#f3e3c4; --r-fatra-fg:#8a5a1a;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#141c13;
+    --paper-raised:#1c2619;
+    --ink:#eae6d8;
+    --ink-soft:#b7bcac;
+    --ink-faint:#8b9280;
+    --forest:#7fb083;
+    --forest-deep:#a6cda8;
+    --moss:#8fae7c;
+    --rust:#e2854f;
+    --rust-soft:#3a2b22;
+    --water:#7cb8d6;
+    --water-soft:#20323b;
+    --stone:#9a9782;
+    --line:#33402f;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px -10px rgba(0,0,0,.5);
+    --easy-bg:#26351f; --easy-fg:#a3c98f;
+    --med-bg:#3a2f18; --med-fg:#e0ac5c;
+    --hard-bg:#3a2119; --hard-fg:#e08c72;
+    --r-raj-bg:#26351f; --r-raj-fg:#a3c98f;
+    --r-ht-bg:#1c2e35; --r-ht-fg:#8fc4de;
+    --r-lt-bg:#2a2438; --r-lt-fg:#bcaee0;
+    --r-fatra-bg:#3a2f18; --r-fatra-fg:#e0ac5c;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#141c13;
+  --paper-raised:#1c2619;
+  --ink:#eae6d8;
+  --ink-soft:#b7bcac;
+  --ink-faint:#8b9280;
+  --forest:#7fb083;
+  --forest-deep:#a6cda8;
+  --moss:#8fae7c;
+  --rust:#e2854f;
+  --rust-soft:#3a2b22;
+  --water:#7cb8d6;
+  --water-soft:#20323b;
+  --stone:#9a9782;
+  --line:#33402f;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px -10px rgba(0,0,0,.5);
+  --easy-bg:#26351f; --easy-fg:#a3c98f;
+  --med-bg:#3a2f18; --med-fg:#e0ac5c;
+  --hard-bg:#3a2119; --hard-fg:#e08c72;
+  --r-raj-bg:#26351f; --r-raj-fg:#a3c98f;
+  --r-ht-bg:#1c2e35; --r-ht-fg:#8fc4de;
+  --r-lt-bg:#2a2438; --r-lt-fg:#bcaee0;
+  --r-fatra-bg:#3a2f18; --r-fatra-fg:#e0ac5c;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation:none !important; transition:none !important;} }
+
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Heebo","Segoe UI",Arial,sans-serif;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,.display{
+  font-family:"Frank Ruhl Libre",Georgia,serif;
+  color:var(--forest-deep);
+  text-wrap:balance;
+  margin:0;
+}
+a{color:var(--water);}
+img{max-width:100%;}
+.container{max-width:1180px;margin:0 auto;padding:0 20px;}
+.eyebrow{
+  font-size:.72rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--rust); display:inline-block; margin-bottom:8px;
+}
+.section-head{max-width:640px; margin-bottom:32px;}
+.section-head h2{font-size:clamp(1.6rem,3vw,2.2rem); font-weight:700; margin-bottom:10px;}
+.section-head p{color:var(--ink-soft); font-size:1rem; margin:0;}
+section{padding:64px 0;}
+section+section{border-top:1px solid var(--line);}
+
+/* ===================== Top nav ===================== */
+.topbar{
+  position:sticky; top:0; z-index:50;
+  background:var(--paper);
+  background:color-mix(in srgb, var(--paper) 88%, transparent);
+  -webkit-backdrop-filter:blur(10px);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.topbar-inner{
+  max-width:1180px;margin:0 auto;padding:0 20px;
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  height:60px;
+}
+.brand{font-family:"Frank Ruhl Libre",serif; font-weight:700; font-size:1.05rem; color:var(--forest-deep); white-space:nowrap;}
+.brand small{display:block; font-family:"Heebo",sans-serif; font-weight:400; font-size:.68rem; color:var(--ink-faint); letter-spacing:.04em;}
+.tabs-wrap{position:relative; flex:1; min-width:0;}
+nav.tabs{display:flex; gap:4px; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none;}
+nav.tabs::-webkit-scrollbar{display:none;}
+nav.tabs a{
+  white-space:nowrap; text-decoration:none; color:var(--ink-soft); font-size:.86rem; font-weight:600;
+  padding:8px 12px; border-radius:999px; transition:background .15s, color .15s;
+}
+nav.tabs a:hover{background:var(--paper-raised); color:var(--forest-deep);}
+@media (max-width:760px){
+  .topbar-inner{height:auto; flex-wrap:wrap; padding:10px 14px; gap:8px;}
+  .brand small{display:none;}
+  .print-btn{order:2; padding:6px 10px; font-size:.72rem;}
+  .tabs-wrap{order:3; flex-basis:100%; width:100%;}
+  nav.tabs{gap:2px;}
+  nav.tabs a{padding:7px 10px; font-size:.8rem;}
+  .tabs-wrap::before, .tabs-wrap::after{
+    content:""; position:absolute; top:0; bottom:0; width:18px; z-index:2; pointer-events:none;
+  }
+  .tabs-wrap::before{right:0; background:linear-gradient(to left, var(--paper), transparent);}
+  .tabs-wrap::after{left:0; background:linear-gradient(to right, var(--paper), transparent);}
+}
+.print-btn{
+  border:1px solid var(--line); background:var(--paper-raised); color:var(--ink-soft);
+  border-radius:999px; padding:7px 14px; font-size:.8rem; font-weight:600; cursor:pointer;
+  display:flex; align-items:center; gap:6px; font-family:inherit;
+}
+.print-btn:hover{color:var(--forest-deep); border-color:var(--forest);}
+
+/* ===================== Hero ===================== */
+.hero{padding:56px 0 40px;}
+.hero-top{display:flex; flex-wrap:wrap; gap:32px; justify-content:space-between; align-items:flex-end; margin-bottom:40px;}
+.hero h1{font-size:clamp(2.1rem,5vw,3.1rem); font-weight:900; line-height:1.08;}
+.hero .sub{color:var(--ink-soft); font-size:1.05rem; margin-top:12px; max-width:520px;}
+.hero-meta{display:flex; flex-direction:column; gap:10px; min-width:220px;}
+.hero-meta .row{display:flex; align-items:baseline; gap:8px; font-size:.92rem;}
+.hero-meta .row .k{color:var(--ink-faint); min-width:70px;}
+.hero-meta .row .v{font-weight:700; color:var(--forest-deep); font-variant-numeric:tabular-nums;}
+
+/* journey stepper */
+.stepper-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:6px;}
+.stepper{
+  display:flex; align-items:flex-start; gap:0; min-width:640px; position:relative; padding-top:6px;
+}
+.step{
+  flex:1 1 0; position:relative; text-align:center; padding:0 4px;
+}
+.step .dot{
+  width:16px; height:16px; border-radius:50%; background:var(--paper-raised); border:3px solid var(--forest);
+  margin:0 auto 10px; position:relative; z-index:2;
+}
+.step.travel .dot{background:var(--rust); border-color:var(--rust); width:10px; height:10px;}
+.step .line{
+  position:absolute; top:14px; right:50%; width:100%; height:2px; background:var(--line); z-index:1;
+}
+.step:first-child .line{display:none;}
+.step .day-num{font-weight:800; font-size:.78rem; color:var(--forest-deep); font-family:"Heebo",sans-serif;}
+.step .day-date{font-size:.7rem; color:var(--ink-faint); margin-top:2px;}
+.step .day-loc{font-size:.76rem; font-weight:600; margin-top:6px; color:var(--ink);}
+.step .day-tag{font-size:.66rem; color:var(--rust); font-weight:700; margin-top:2px;}
+
+/* ===================== Buttons / chips ===================== */
+.chip{
+  border:1px solid var(--line); background:var(--paper-raised); color:var(--ink-soft);
+  border-radius:999px; padding:6px 13px; font-size:.8rem; font-weight:600; cursor:pointer;
+  font-family:inherit; transition:.15s;
+}
+.chip:hover{border-color:var(--forest);}
+.chip.active{background:var(--forest); border-color:var(--forest); color:#fbfbf3;}
+.chip.gold.active{background:var(--rust); border-color:var(--rust);}
+
+/* ===================== Itinerary timeline ===================== */
+.timeline{position:relative;}
+.timeline::before{
+  content:""; position:absolute; top:6px; bottom:6px; right:27px; width:2px; background:var(--line);
+}
+@media (max-width:640px){ .timeline::before{right:19px;} }
+.day-card{
+  position:relative; padding-right:64px; margin-bottom:36px;
+}
+@media (max-width:640px){ .day-card{padding-right:48px;} }
+.day-card:last-child{margin-bottom:0;}
+.day-badge{
+  position:absolute; right:0; top:0; width:56px; height:56px; border-radius:50%;
+  background:var(--forest); color:#fbfbf3; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  font-family:"Frank Ruhl Libre",serif; font-weight:700; font-size:1.3rem; z-index:2; box-shadow:var(--shadow);
+}
+.day-badge span{font-family:"Heebo",sans-serif; font-size:.55rem; font-weight:700; letter-spacing:.03em;}
+.day-card.travel .day-badge{background:var(--rust);}
+@media (max-width:640px){ .day-badge{width:40px;height:40px; font-size:1rem;} }
+
+.day-body{
+  background:var(--paper-raised); border:1px solid var(--line); border-radius:16px; padding:22px 24px; box-shadow:var(--shadow);
+}
+.day-head{display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between; margin-bottom:6px;}
+.day-head .when{font-size:.78rem; color:var(--ink-faint); font-weight:700; letter-spacing:.03em;}
+.day-title{font-size:1.28rem; font-weight:700; margin:2px 0 4px;}
+.day-hotel{
+  display:inline-flex; align-items:center; gap:6px; font-size:.78rem; font-weight:700; color:var(--forest-deep);
+  background:var(--easy-bg); padding:4px 10px; border-radius:999px;
+}
+.day-hotel.travel-tag{background:var(--rust-soft); color:var(--rust);}
+.must-star{color:var(--rust); font-size:.85em;}
+
+.day-text{color:var(--ink-soft); font-size:.94rem; margin:10px 0 14px;}
+.day-text strong{color:var(--ink);}
+
+.stat-row{display:flex; flex-wrap:wrap; gap:8px 22px; margin:14px 0; padding:12px 14px; background:var(--paper); border-radius:10px; border:1px solid var(--line);}
+.stat{font-size:.8rem; color:var(--ink-soft); display:flex; gap:5px; align-items:baseline;}
+.stat b{color:var(--ink); font-weight:700;}
+
+.opt-block{border-right:3px solid var(--moss); padding:4px 14px; margin:12px 0; background:var(--paper); background:color-mix(in srgb, var(--moss) 8%, transparent); border-radius:0 8px 8px 0;}
+.opt-block .opt-label{font-weight:700; font-size:.82rem; color:var(--forest-deep); display:block; margin-bottom:3px;}
+
+.food-line{font-size:.85rem; margin:6px 0; display:flex; gap:8px;}
+.food-line .ic{flex:none;}
+
+details.rain{margin-top:14px; border-top:1px dashed var(--line); padding-top:10px;}
+details.rain summary{cursor:pointer; font-size:.84rem; font-weight:700; color:var(--water); list-style:none; display:flex; align-items:center; gap:6px;}
+details.rain summary::-webkit-details-marker{display:none;}
+details.rain summary::before{content:"☔"; }
+details.rain[open] summary::before{content:"☔";}
+details.rain p{font-size:.85rem; color:var(--ink-soft); margin:8px 0 0;}
+
+/* ===================== Routes ===================== */
+.filter-bar{
+  display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:28px;
+  background:var(--paper-raised); border:1px solid var(--line); border-radius:14px; padding:14px 16px;
+}
+.filter-group{display:flex; flex-wrap:wrap; gap:6px; align-items:center;}
+.filter-label{font-size:.72rem; font-weight:700; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.06em; margin-inline-end:2px;}
+.search-input{
+  border:1px solid var(--line); background:var(--paper); border-radius:999px; padding:8px 14px;
+  font-family:inherit; font-size:.85rem; color:var(--ink); min-width:180px; flex:1;
+}
+.search-input:focus{outline:2px solid var(--forest); outline-offset:1px;}
+.count-note{font-size:.8rem; color:var(--ink-faint); margin-bottom:16px;}
+
+.routes-grid{display:grid; grid-template-columns:1fr; gap:16px;}
+.route-card{
+  background:var(--paper-raised); border:1px solid var(--line); border-radius:16px; padding:22px 24px; box-shadow:var(--shadow);
+}
+.route-top{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:10px;}
+.badge{font-size:.72rem; font-weight:700; padding:4px 10px; border-radius:999px;}
+.badge.must{background:var(--rust); color:#fff;}
+.badge.region-raj{background:var(--r-raj-bg); color:var(--r-raj-fg);}
+.badge.region-high-tatras{background:var(--r-ht-bg); color:var(--r-ht-fg);}
+.badge.region-low-tatras{background:var(--r-lt-bg); color:var(--r-lt-fg);}
+.badge.region-fatra{background:var(--r-fatra-bg); color:var(--r-fatra-fg);}
+.badge.diff-easy{background:var(--easy-bg); color:var(--easy-fg);}
+.badge.diff-medium{background:var(--med-bg); color:var(--med-fg);}
+.badge.diff-hard{background:var(--hard-bg); color:var(--hard-fg);}
+.mark-note{margin-inline-start:auto; font-size:.72rem; color:var(--ink-faint); font-family:"Heebo",sans-serif;}
+.route-card h3{font-size:1.25rem; font-weight:700; margin-bottom:8px;}
+.route-desc{color:var(--ink-soft); font-size:.9rem; margin-bottom:14px;}
+.route-stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:8px; background:var(--paper); border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin-bottom:14px; font-size:.8rem;}
+.route-stats div b{display:block; color:var(--ink); font-weight:700;}
+.route-stats div{color:var(--ink-faint);}
+.route-detail-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:10px;}
+.detail-box{background:var(--paper); border:1px solid var(--line); border-radius:10px; padding:10px 12px; font-size:.82rem;}
+.detail-box .lbl{font-weight:700; color:var(--forest-deep); display:block; margin-bottom:3px; font-size:.78rem;}
+.detail-box.rainbox{border-color:var(--water-soft);}
+.detail-box.rainbox .lbl{color:var(--water);}
+
+/* ===================== Food ===================== */
+.food-groups{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px;}
+.food-group{background:var(--paper-raised); border:1px solid var(--line); border-radius:16px; padding:20px 22px; box-shadow:var(--shadow);}
+.food-group h3{font-size:1.05rem; margin-bottom:4px;}
+.food-group .area-tag{font-size:.74rem; color:var(--ink-faint); margin-bottom:14px; display:block;}
+.food-item{padding:10px 0; border-top:1px solid var(--line);}
+.food-item:first-of-type{border-top:none;}
+.food-item .fname{font-weight:700; font-size:.92rem; color:var(--ink);}
+.food-item .fnote{font-size:.82rem; color:var(--ink-soft); margin-top:2px;}
+
+/* ===================== Info accordion ===================== */
+.info-grid{display:grid; grid-template-columns:1fr; gap:14px;}
+details.info-item{background:var(--paper-raised); border:1px solid var(--line); border-radius:14px; padding:0; box-shadow:var(--shadow); overflow:hidden;}
+details.info-item summary{
+  cursor:pointer; list-style:none; padding:18px 22px; font-weight:700; font-size:1.02rem; display:flex; align-items:center; gap:10px;
+  color:var(--forest-deep);
+}
+details.info-item summary::-webkit-details-marker{display:none;}
+details.info-item summary .chevron{margin-inline-start:auto; transition:transform .18s; color:var(--ink-faint); font-size:.9rem;}
+details.info-item[open] summary .chevron{transform:rotate(180deg);}
+.info-body{padding:0 22px 22px; color:var(--ink-soft); font-size:.92rem;}
+.info-body p{margin:0 0 10px;}
+.info-body ul{margin:0 0 10px; padding-inline-start:20px;}
+.info-body li{margin-bottom:4px;}
+table.fine-table{width:100%; border-collapse:collapse; font-size:.85rem; margin:10px 0;}
+table.fine-table th, table.fine-table td{text-align:right; padding:8px 10px; border-bottom:1px solid var(--line);}
+table.fine-table th{color:var(--ink-faint); font-weight:700; font-size:.76rem; text-transform:uppercase; letter-spacing:.04em;}
+table.fine-table td{font-variant-numeric:tabular-nums; font-weight:600;}
+.tbl-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch;}
+.budget-box{display:flex; align-items:baseline; gap:10px; background:var(--paper); border:1px solid var(--line); border-radius:10px; padding:14px 16px; margin:10px 0;}
+.budget-box .amt{font-family:"Frank Ruhl Libre",serif; font-size:1.7rem; font-weight:700; color:var(--forest-deep); font-variant-numeric:tabular-nums;}
+
+/* ===================== Rain grid ===================== */
+.rain-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px;}
+.rain-card{background:var(--paper-raised); border:1px solid var(--water-soft); border-radius:14px; padding:18px 20px; box-shadow:var(--shadow);}
+.rain-card .tag{font-size:.7rem; font-weight:700; color:var(--water); text-transform:uppercase; letter-spacing:.04em;}
+.rain-card h3{font-size:1.02rem; margin:6px 0 6px;}
+.rain-card p{font-size:.85rem; color:var(--ink-soft); margin:0;}
+
+footer{padding:36px 0 60px; text-align:center; color:var(--ink-faint); font-size:.82rem;}
+
+@media print{
+  .topbar, .filter-bar, .print-btn{display:none !important;}
+  section{padding:20px 0; break-inside:avoid;}
+  body{background:#fff; color:#000;}
+  .day-body, .route-card, .food-group, .rain-card{box-shadow:none; border:1px solid #ccc;}
+}
+</style>
+
+<body dir="rtl" lang="he">
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">סלובקיה 2026<small>23–29 בספטמבר</small></div>
+    <div class="tabs-wrap">
+      <nav class="tabs">
+        <a href="javascript:void(0)" data-scroll-to="itinerary">לוח הטיול</a>
+        <a href="javascript:void(0)" data-scroll-to="routes">מסלולי הליכה</a>
+        <a href="javascript:void(0)" data-scroll-to="food">מסעדות</a>
+        <a href="javascript:void(0)" data-scroll-to="info">מידע מעשי</a>
+        <a href="javascript:void(0)" data-scroll-to="rain">ימים גשומים</a>
+      </nav>
+    </div>
+    <button class="print-btn" onclick="window.print()">🖨️ הדפסה</button>
+  </div>
+</div>
+
+<header class="hero container">
+  <div class="hero-top">
+    <div>
+      <span class="eyebrow">גן העדן הסלובקי · הטטרה הגבוהים · ליפטוב · קרקוב</span>
+      <h1>הטיול לסלובקיה</h1>
+      <p class="sub">שבעה ימים בין קניונים, אגמי טורקיז ופסגות טטרה — משתי בקתות בסיס ועד רחובות קרקוב העתיקה. כל המסלולים, המסעדות והחלופות ליום גשום, במקום אחד.</p>
+    </div>
+    <div class="hero-meta">
+      <div class="row"><span class="k">תאריכים</span><span class="v">23–29.9.2026</span></div>
+      <div class="row"><span class="k">נחיתה</span><span class="v">קרקוב, פולין</span></div>
+      <div class="row"><span class="k">לינה 1</span><span class="v">Tri Studničky · 3 לילות</span></div>
+      <div class="row"><span class="k">לינה 2</span><span class="v">Patria · 2 לילות</span></div>
+    </div>
+  </div>
+
+  <div class="stepper-wrap">
+    <div class="stepper" id="stepper"></div>
+  </div>
+</header>
+
+<section id="itinerary" class="container">
+  <div class="section-head">
+    <span class="eyebrow">יום אחר יום</span>
+    <h2>לוח הטיול המפורט</h2>
+    <p>התוכנית המדויקת לפי תאריכים, כולל נקודות יציאה, נתוני מסלול ואפשרויות חלופיות לכל יום. ⭐ מסמן את ימי השיא של הטיול.</p>
+  </div>
+  <div class="timeline" id="timeline"></div>
+</section>
+
+<section id="routes" class="container">
+  <div class="section-head">
+    <span class="eyebrow">קטלוג מסלולים · 13 מסלולים</span>
+    <h2>כל מסלולי ההליכה באזור</h2>
+    <p>מעבר לתוכנית הקבועה — מאגר מלא של מסלולי החלופה והאופציות הנוספות באזור, למקרה שבא לכם לסטות מהתוכנית.</p>
+  </div>
+  <div class="filter-bar">
+    <input type="text" class="search-input" id="searchInput" placeholder="חיפוש מסלול, נחל, אגם…">
+    <div class="filter-group">
+      <span class="filter-label">אזור</span>
+      <button class="chip active" data-filter="region" data-value="all">הכל</button>
+      <button class="chip" data-filter="region" data-value="raj">גן העדן הסלובקי</button>
+      <button class="chip" data-filter="region" data-value="high-tatras">הטטרה הגבוהים</button>
+      <button class="chip" data-filter="region" data-value="low-tatras">הטטרה הנמוכים</button>
+      <button class="chip" data-filter="region" data-value="fatra">הפטרה הקטנים</button>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">קושי</span>
+      <button class="chip active" data-filter="difficulty" data-value="all">הכל</button>
+      <button class="chip" data-filter="difficulty" data-value="easy">קל</button>
+      <button class="chip" data-filter="difficulty" data-value="medium">בינוני</button>
+      <button class="chip" data-filter="difficulty" data-value="hard">מאתגר</button>
+    </div>
+    <button class="chip gold" id="mustDoBtn">⭐ 4 מסלולי חובה</button>
+  </div>
+  <p class="count-note" id="countNote"></p>
+  <div class="routes-grid" id="routesGrid"></div>
+</section>
+
+<section id="food" class="container">
+  <div class="section-head">
+    <span class="eyebrow">איפה אוכלים</span>
+    <h2>מסעדות ובקתות הרים</h2>
+    <p>מרוכזות לפי אזור — ממש לאורך המסלולים או דקות ספורות מהמלון.</p>
+  </div>
+  <div class="food-groups" id="foodGroups"></div>
+</section>
+
+<section id="info" class="container">
+  <div class="section-head">
+    <span class="eyebrow">לפני שיוצאים לדרך</span>
+    <h2>מידע מעשי</h2>
+    <p>נהיגה, ציוד ותקציב — כל מה שכדאי לדעת לפני הטיול.</p>
+  </div>
+  <div class="info-grid" id="infoGrid"></div>
+</section>
+
+<section id="rain" class="container">
+  <div class="section-head">
+    <span class="eyebrow">תוכנית ב'</span>
+    <h2>אלטרנטיבות ליום גשום</h2>
+    <p>מזג האוויר בהרים הפכפך — הנה כל אפשרויות הגיבוי לפי אזור.</p>
+  </div>
+  <div class="rain-grid" id="rainGrid"></div>
+</section>
+
+<footer>מסמך אישי לטיול המשפחתי · נאסף מכמה מדריכים ומסלולים · ספטמבר 2026</footer>
+
+<script>
+document.querySelectorAll('[data-scroll-to]').forEach(a=>{
+  a.addEventListener('click', function(e){
+    e.preventDefault();
+    const target = document.getElementById(this.dataset.scrollTo);
+    if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+});
+/* ===================== DATA ===================== */
+const stepperDays = [
+  {n:'✈', date:'23.9', loc:'קרקוב', tag:'נחיתה', travel:true},
+  {n:1, date:'23.9', loc:'Tri Studničky', tag:'הגעה'},
+  {n:2, date:'24.9', loc:'Tri Studničky', tag:'האגם הירוק'},
+  {n:3, date:'25.9', loc:'Tri Studničky', tag:'סוחה בלה'},
+  {n:4, date:'26.9', loc:'Patria', tag:'מעבר מלון'},
+  {n:5, date:'27.9', loc:'Patria', tag:'יום בחירה'},
+  {n:6, date:'28.9', loc:'קרקוב', tag:'העברה'},
+  {n:7, date:'29.9', loc:'קרקוב', tag:'טיסה'},
+];
+
+const days = [
+  {
+    day:1, date:'23.9 · יום רביעי', title:'נחיתה, הגעה לטטרה והתאקלמות', hotel:'Tri Studničky', travel:true,
+    text:`נחיתה בנמל התעופה בקרקוב בשעה <strong>14:00</strong> ואיסוף הרכב השכור. נסיעה של כ-2.5 שעות למלון <strong>Tri Studničky</strong> בעמק דמנובסקה / יאסנה. <strong>חשוב:</strong> לרכוש ויניאטה (מדבקת אגרה דיגיטלית) מיד עם החצייה לסלובקיה. בשעה 17:00 צ'ק־אין, התרעננות ומנוחה בספא המלון.`,
+    stats:[],
+    food:[['🍽️','ארוחת ערב במסעדת המלון או במסעדה מקומית באזור (למשל Route 66 בליפטובסקי מיקולש)']],
+  },
+  {
+    day:2, date:'24.9 · יום חמישי', title:'הרי הטטרה הגבוהים: האגם הירוק', mustDo:true, hotel:'Tri Studničky',
+    text:`יציאה מחניון <strong>Biela Voda</strong> (כ-35–40 דקות נסיעה מהמלון). עלייה מתונה ונוחה לאורך ערוץ נחל Biela Voda ביער (שביל צהוב), הנפתחת לנופים אלפיניים ומסתיימת בבקתת ההרים הציורית <strong>Chata pri Zelenom plese</strong> על שפת אגם הטורקיז.`,
+    stats:[['אורך','כ-15 ק"מ הלוך-חזור'],['קושי','בינונית (עלייה מתונה)'],['משך','5–5.5 שעות']],
+    food:[['🍲','Chata pri Zelenom plese — מרקים חמים, תבשילים סלובקיים ובירה אלפינית'],['🌆','בערב: Koliba Kamzík בסטארי סמוקובץ / Koliba Patria']],
+    rain:'ביקור במערת הנטיפים דמנובסקה (מערת החירות — קרובה מאוד למלון) וסיום במרחצאות התרמיים המקורים AquaCity Poprad או מרחצאות Bešeňová.'
+  },
+  {
+    day:3, date:'25.9 · יום שישי', title:'גן העדן הסלובקי: קניון סוחה בלה', mustDo:true, hotel:'Tri Studničky',
+    text:`יציאה מחניון <strong>Hrabušice–Podlesok</strong> (כ-45 דקות נסיעה מהמלון). טיפוס אתגרי בתוך קניון <strong>Suchá Belá</strong> באמצעות סולמות ברזל, גשרים ומעברים מעל מפלים (סימון ירוק). מראש הקניון ממשיכים לכיוון <strong>Kláštorisko</strong> (שרידי מנזר) ויורדים בשביל מעגלי חזרה לחניון.`,
+    stats:[['אורך','כ-9.4 ק"מ מעגלי'],['קושי','מאתגרת (סולמות, בטוח)'],['משך','כ-4.5 שעות']],
+    food:[['🥪','מזנון קל בכניסה ב-Podlesok, ובאמצע הדרך מסעדה בשרידי מנזר Kláštorisko'],['🌆','בערב: Route 66 בליפטובסקי מיקולש / מסעדת המלון']],
+    rain:'סיור בטירת ספיש (Spišský hrad) בעיירה הציורית לבוצ׳ה (Levoča), או שופינג במתחם המקורה Forum Poprad.'
+  },
+  {
+    day:4, date:'26.9 · יום שבת', title:'מעבר למלון Patria: מפלי סקוק ואגם פופרד', mustDo:true, hotel:'Patria',
+    text:`צ'ק־אאוט מ-Tri Studničky ונסיעה של כ-35 דקות למלון <strong>Patria</strong> על אגם Štrbské Pleso.`,
+    stats:[['אורך','כ-10–12 ק"מ סה"כ'],['קושי','בינונית'],['משך','4.5–5 שעות']],
+    opts:[
+      ['אופציה א׳ — התוכנית המלאה','יציאה ברגל מאגם שטראבסקה פלסו לאורך עמק Mlynická dolina אל מפלי סקוק (Vodopád Skok) המרשימים (סימון צהוב), המשך לאגם פופרד (Popradské Pleso) וחזרה למלון — אפס דקות נסיעה, ממש מלובי המלון.'],
+      ['אופציה ב׳ — בשילוב Hrebienok','עצירה ב-Starý Smokovec בדרך למלון, עלייה ברכבל הקרונית ל-Hrebienok, הליכה קלה של כ-45 דקות למפלי Studenovodské vodopády ולבקתת Rainerova chata וחזרה ברכבל. משם המשך למלון וביצוע מסלול אגם פופרד בלבד (כ-8 ק"מ).'],
+    ],
+    food:[['🍲','Chata pri Popradskom plese על שפת אגם פופרד'],['🌆','בערב: Koliba Patria — ממש על שפת שטראבסקה פלסו']],
+    rain:'ביקור במוזיאון הפולקלור הפתוח Pribylina או בטירת אורבה (Orava Castle).'
+  },
+  {
+    day:5, date:'27.9 · יום ראשון', title:'יום בחירה: קניון דיירי או הרביינוק–סקלנטה פלסו', mustDo:true, hotel:'Patria',
+    text:`יום עם שתי אפשרויות מצוינות — בוחרים לפי מזג האוויר והחשק.`,
+    stats:[],
+    opts:[
+      ['אופציה 1 — קניון דיירי (Jánošíkove Diery)','יציאה מחניון Hotel Diery / Terchová (כ-50 דקות נסיעה מ-Patria). הליכה מרהיבה בתוך נקיקי Dolné diery ו-Nové diery לאורך למעלה מ-20 מפלים, גשרי עץ וסולמות ברזל, המשך ל-Horné diery וחזרה מעגלית דרך Podžiar. כ-9.5–10 ק"מ, בינונית-מאתגרת, כ-4.5 שעות. ארוחת צהריים ב-Terchovská Koliba Diery בנקודת הסיום.'],
+      ['אופציה 2 — הרביינוק המלא עד Skalnaté Pleso','התחלה בחניון תחנת הרכבל ב-Starý Smokovec, עלייה ברכבל ל-Hrebienok. הליכה לאורך שביל ה"מגיסטרלה" (סימון אדום) דרך מפלי Studenovodské vodopády ובקתת Zamkovského chata, טיפוס אל אגם Skalnaté Pleso. ירידה ברכבל ל-Tatranská Lomnica וחזרה קצרה לרכב. כ-10 ק"מ, בינונית-מאתגרת, כ-5.5 שעות.'],
+    ],
+    food:[],
+    rain:'יום ספא ורגיעה במרחצאות Aphrodite ברג׳צקה טפליצה או ב-Bešeňová.'
+  },
+  {
+    day:6, date:'28.9 · יום שני', title:'יום בקרקוב, פולין', hotel:'קרקוב', travel:true,
+    text:`צ'ק־אאוט מוקדם ב-08:30 ממלון Patria, נסיעה של כ-2.5 שעות לקרקוב. יום שלם בעיר העתיקה (Stare Miasto), כיכר השוק המרכזית, מצודת ואוול (Wawel) והרובע היהודי (Kazimierz).`,
+    stats:[],
+    food:[],
+    rain:'סיור במוזיאון התת-קרקעי מתחת לכיכר השוק (Rynek Underground) או במוזיאון מפעל שינדלר.'
+  },
+  {
+    day:7, date:'29.9 · יום שלישי', title:'סיום הטיול וטיסה חזרה', hotel:'קרקוב', travel:true,
+    text:`התארגנות אחרונה בקרקוב, קניות בדיוטי פרי / מרכז העיר. החזרת הרכב השכור בנמל התעופה וטיסה חזרה ארצה.`,
+    stats:[],
+    food:[],
+  },
+];
+
+const routes = [
+  {n:1, name:'קניון סוחה בלה', en:'Suchá Belá', region:'raj', difficulty:'hard', mustDo:true, marking:'ירוק ← צהוב/אדום',
+   desc:'המסלול האייקוני והמפורסם ביותר בגן העדן הסלובקי. הליכה אתגרית בערוץ נקיק מרהיב, טיפוס על סולמות ברזל גבוהים לצד מפלים שוצפים, חציית גזעים שנפלו ודריכה על אבנים בזרמי מים.',
+   length:'9.4 ק"מ מעגלי', duration:'4–4.5 שעות', character:'טיפוס חד-סטרי', trailhead:'Podlesok',
+   foodRoute:'מזנון קל בכניסה ב-Podlesok, ובאמצע הדרך מסעדה בשרידי מנזר Kláštorisko.',
+   foodEve:'מסעדת Route 66 בליפטובסקי מיקולש / מסעדת המלון Tri Studničky.',
+   rain:'טירת ספיש (Spišský hrad) והמיצג העתיק, או קניות במתחם Forum Poprad.'},
+  {n:2, name:'האגם הירוק', en:'Zelené Pleso', region:'high-tatras', difficulty:'medium', mustDo:true, marking:'צהוב (הלוך-חזור)',
+   desc:'מסלול אלפיני עוצר נשימה לצד ערוץ נחל צלול, דרך יערות מחטניים הפתוחים לנוף מצוקי הגרניט האדירים של הטטרה, ומסתיים בבקתת הרים יפהפייה הנושקת לאגם הטורקיז.',
+   length:'15 ק"מ הלוך-חזור', duration:'5–5.5 שעות', character:'מתונה ונוחה', trailhead:'Biela Voda',
+   foodRoute:'בקתת ההרים Chata pri Zelenom plese — מרקים חמים, תבשילים סלובקיים ובירה אלפינית.',
+   foodEve:'Koliba Kamzík בסטארי סמוקובץ / Koliba Patria.',
+   rain:'מתחם הספא AquaCity Poprad או בילוי במרחצאות Bešeňová.'},
+  {n:3, name:'מפלי סקוק ואגם פופרד', en:'Vodopád Skok & Popradské Pleso', region:'high-tatras', difficulty:'medium', mustDo:true, marking:'יציאה ישירה ברגל ממלון Patria',
+   desc:'המסלול המושלם שיוצא ברגל ישירות מאגם Štrbské Pleso. הליכה בעמק מרהיב אל מפל מים אדיר בגובה 25 מטרים, ומשם חיבור יפהפה אל אגם פופרד הציורי.',
+   length:'10–12 ק"מ מעגלי', duration:'4.5–5 שעות', character:'0 דק׳ נסיעה — ברגל מהמלון', trailhead:'Štrbské Pleso / מלון Patria',
+   foodRoute:'מסעדת בקתת ההרים Chata pri Popradskom plese שעל שפת אגם פופרד.',
+   foodEve:'Koliba Patria (ממש על שפת אגם שטראבסקה פלסו).',
+   rain:'מוזיאון הפולקלור הפתוח Pribylina או סיור בטירת Orava Castle.'},
+  {n:4, name:'קניון דיירי', en:'Jánošíkove Diery', region:'fatra', difficulty:'medium', mustDo:true, marking:'כחול ← צהוב ← ירוק',
+   desc:'אחד המסלולים המרשימים והיפים ביותר בסלובקיה! מערכת קניונים טבעית (Dolné, Nové, Horné diery) עם מעל 20 מפלי מים, גשרוני עץ מעל הנחל וסולמות ביער.',
+   length:'9.5–10 ק"מ מעגלי', duration:'4.5 שעות', character:'מוצל ומוגן מרוח', trailhead:'Hotel Diery',
+   foodRoute:'בקתת הרעננות Podžiar באמצע הדרך (שתייה, חטיפים ומאפים מקומיים).',
+   foodEve:'Terchovská Koliba Diery בפתח המסלול — אוכל סלובקי ביתי מעולה.',
+   rain:'מרחצאות הספא Spa Aphrodite ברג׳צקה טפליצה.'},
+  {n:5, name:'קניון פריאלום הורנאדו', en:'Prielom Hornádu', region:'raj', difficulty:'medium', marking:'כחול ← צהוב',
+   desc:'קניון מרהיב לצד נהר ההורנד. השביל כולל 140 מדרכי מתכת (Stupačky) המקובעים ישירות לצלע ההר מעל זרם המים ו-7 גשרים תלויים.',
+   length:'10–16 ק"מ', duration:'4.5–5 שעות', character:'מדרכי מתכת וגשרים', trailhead:'Podlesok',
+   foodRoute:'מסעדה ב-Letanovský Mlyn ובמנזר Kláštorisko.',
+   foodEve:'פנסיונים מקומיים ב-Spišská Nová Ves / מסעדת המלון.',
+   rain:'סיור בעיר ההיסטורית Levoča ובכנסיית סנט ג׳יימס.'},
+  {n:6, name:'הר חופוק לפסגת דומבייר', en:'Chopok → Ďumbier', region:'low-tatras', difficulty:'medium', marking:'עלייה ברכבל מיאסנה',
+   desc:'מסלול רכס פנורמי מרהיב בגובה 2,000 מטרים. עולים ברכבל מאתר יאסנה לפסגת Chopok וצועדים לאורך קו הרכס אל הפסגה הגבוהה ביותר בטטרה הנמוכים.',
+   length:'9 ק"מ הלוך-חזור', duration:'4 שעות', character:'שיא 2,043 מ׳', trailhead:'Jasná — Biela Púť',
+   foodRoute:'מסעדת Rotunda בפסגת חופוק / בקתת Chata M. R. Štefánika.',
+   foodEve:'מסעדת Tri Studničky המצוינת / מסעדת Bernardov Dvor.',
+   rain:'מערת החירות Demänovská Cave of Liberty בעמק דמנובסקה.'},
+  {n:7, name:'הרביינוק ומפלי המים', en:'Hrebienok & Studenovodské vodopády', region:'high-tatras', difficulty:'easy', marking:'רכבל מ-Starý Smokovec',
+   desc:'מסלול קל ורגוע המתחיל בעלייה ברכבל הקרונית מסטארי סמוקובץ אל הרביינוק, והליכה לאורך מפלי מים שוצפים ובקתות הרים עתיקות.',
+   length:'3–5 ק"מ מעגלי', duration:'1.5–2 שעות', character:'גישה ברכבל קרונית', trailhead:'Starý Smokovec',
+   foodRoute:'בקתות ההרים העתיקות Rainerova chata ו-Bilíkova chata.',
+   foodEve:'מסעדת Koliba Kamzík בסטארי סמוקובץ.',
+   rain:'גלריית הילדים ואשליות האור Tricklandia בסטארי סמוקובץ.'},
+  {n:8, name:'קניון ולקי סוקול', en:'Veľký Sokol', region:'raj', difficulty:'hard', marking:'צהוב, כיוון אחד בלבד',
+   desc:'הקניון העמוק והפראי ביותר בגן העדן הסלובקי, מוקף בצלעי הרים הזוקפים קירות סלע אדירים בגובה 300 מטרים, סולמות ומפלים.',
+   length:'12 ק"מ מעגלי', duration:'4.5–5 שעות', character:'פראי ומבודד', trailhead:'Strieborná',
+   foodRoute:'אין בקתות בתוך הנקיק — חובה להביא כריכים ומים בתרמיל.',
+   foodEve:'פנסיון ומסעדת Ranč u Trapera ב-Podlesok.',
+   rain:'ביקור במצודת Stará Ľubovňa והכפר המשוחזר למרגלותיה.'},
+  {n:9, name:'קניון זיימרסקה ורמת גראבי', en:'Zejmarská Roklina & Geravy', region:'raj', difficulty:'easy', marking:'אדום ← כחול ← ירוק',
+   desc:'הקניון הקצר והקליל ביותר בשמורה, בחלקה הדרומי ליד אגם Dedinky. טיפוס קצר ומקסים בסולמות לצד מפלים קטנים עד לקרחת היער Geravy.',
+   length:'5 ק"מ מעגלי', duration:'2.25 שעות', character:'מתאים למשפחות', trailhead:'אגם Dedinky',
+   foodRoute:'מלון המטיילים והמזנון בקרחת היער Geravy בפסגת הקניון.',
+   foodEve:'מסעדת Reštaurácia Pelle על שפת אגם דדינקי.',
+   rain:'מערת הקרח דובשינסקה (Dobšinská Ice Cave) הסמוכה.'},
+  {n:10, name:'אגם דדינקי', en:'Palcmanská Maša / Dedinky', region:'raj', difficulty:'easy', marking:'ירוק',
+   desc:'הליכה מישורית, רגועה וציורית לאורך חוף האגם הגדול ביותר בגן העדן הסלובקי. מתאים למנוחה, שיט בסירות פדלים ופיקניק.',
+   length:'3–4 ק"מ', duration:'שעה אחת', character:'מישורי לחלוטין', trailhead:'מרכז הכפר Dedinky',
+   foodRoute:'בתי קפה, דוכני גלידה ומזנונים לאורך חוף האגם.',
+   foodEve:'מסעדת Reštaurácia Pelle — דגים טריים ואוכל מקומי.',
+   rain:'נסיעה לאורך עמק Stratenská dolina וביקור במערה.'},
+  {n:11, name:'עמק סטרטנסקי ומערת הקרח', en:'Stratenská Dolina & Dobšinská', region:'raj', difficulty:'easy', marking:'מונגש לעגלות / כיסאות גלגלים',
+   desc:'שביל סלול ומישורי לצד נהר הנילץ׳, חוצה עמק ירוק וסגור לרכבים. מוביל ישירות אל מערת הקרח דובשינסקה — אתר מורשת עולמית של אונסק"ו.',
+   length:'עד 14 ק"מ, גמיש', duration:'לפי בחירה', character:'מונגש וסלול', trailhead:'Stratená / מערת הקרח',
+   foodRoute:'מסעדות ומזנונים סמוך לרחבת הכניסה למערת הקרח.',
+   foodEve:'מסעדת Hostinec Stará Krčma בכפר Stratená.',
+   rain:'המסלול עצמו נוח בגשם קל + ביקור במערת הקרח.'},
+  {n:12, name:'תצפית טומשובסקי', en:'Tomášovský Výhľad', region:'raj', difficulty:'easy', marking:'צהוב',
+   desc:'נקודת התצפית המצולמת ביותר בסלובקיה! מצוק סלע אנכי בגובה 680 מטרים המעניק תצפית פנורמית מרהיבה על קניון נהר ההורנד ורכס הטטרה.',
+   length:'3.5 ק"מ הלוך-חזור', duration:'1.5 שעות', character:'מצוק תצפית אדיר', trailhead:'מרכז מבקרים Čingov',
+   foodRoute:'מסעדות ומזנונים במרכז המבקרים Čingov ובחניון.',
+   foodEve:'מסעדת Hotel Spiš ב-Čingov.',
+   rain:'סיור במדרחוב העיר העתיקה של Spišská Nová Ves.'},
+  {n:13, name:'עמק קוצ׳אנסקה וטחנות המים', en:'Kvačianska dolina & Oblazy', region:'low-tatras', difficulty:'medium', marking:'אדום',
+   desc:'מסלול יער קסום לאורך ערוץ נחל עמוק, המוביל אל Oblazy — טחנות מים עתיקות מעץ הפועלות מול פלגי מים בלב היער.',
+   length:'6–8 ק"מ הלוך-חזור', duration:'2.5–3 שעות', character:'טחנת מים עתיקה', trailhead:'הכפר Kvačany',
+   foodRoute:'כיבוד קל ושתייה בהוראת תרומה ליד טחנות המים Oblazy.',
+   foodEve:'מסעדת המבשלה Pivovar Kvačany בכפר קוצ׳אני.',
+   rain:'פארק המים והבריכות התרמיות Tatralandia בליפטובסקי מיקולש.'},
+];
+
+const foodGroups = [
+  {area:'סביבות Tri Studničky · עמק דמנובסקה וליפטוב', items:[
+    ['Route 66','ליפטובסקי מיקולש · Garbiarska 627 — ארוחת ערב פופולרית ומומלצת בעיר.'],
+    ['Terchovská Koliba Diery','בפתח קניון דיירי — אוכל סלובקי ביתי, מקום מצוין לארוחת צהריים אחרי המסלול.'],
+    ['Kláštorisko','אמצע מסלולי סוחה בלה / פריאלום הורנאדו, בשרידי מנזר עתיק — מרק ואתנחתא.'],
+  ]},
+  {area:'סביבות Patria · אגם Štrbské Pleso וסביבתה', items:[
+    ['Koliba Patria','מסעדת המלון, ממש על שפת אגם שטראבסקה פלסו.'],
+    ['Chata pri Popradskom plese','בקתת הרים על שפת אגם פופרד — עצירה מושלמת באמצע המסלול.'],
+    ['Chata pri Zelenom plese','בקתת הרים על שפת האגם הירוק — מרקים חמים ובירה אלפינית.'],
+    ['Koliba Kamzík','סטארי סמוקובץ — דרך נעימה לסיים יום הרביינוק.'],
+    ['Rainerova chata / Zamkovského chata','בקתות הרים היסטוריות לאורך שביל ה"מגיסטרלה" בין הרביינוק לסקלנטה פלסו.'],
+  ]},
+  {area:'גן העדן הסלובקי — דרום (אזור דדינקי)', items:[
+    ['Reštaurácia Pelle','על שפת אגם דדינקי — דגים טריים ואוכל מקומי, הכתובת המומלצת ביותר באזור.'],
+    ['Ranč u Trapera','ב-Podlesok — פנסיון ומסעדה בקצה מסלול ולקי סוקול.'],
+    ['Hostinec Stará Krčma','בכפר Stratená, ליד מערת הקרח.'],
+  ]},
+  {area:'קרקוב, פולין', items:[
+    ['העיר העתיקה וקזימייז׳','שפע מסעדות פולניות ויהודיות באזור הרובע היהודי (Kazimierz) ובסמטאות Stare Miasto — כדאי לבחור ספונטנית לפי מה שנראה טוב.'],
+  ]},
+];
+
+const rainAlts = [
+  {area:'ליד Tri Studničky', name:'מערת הנטיפים דמנובסקה (מערת החירות)', desc:'המערה המתויירת ביותר בסלובקיה, קרובה מאוד למלון. סיורים מודרכים בכול שעה עגולה עד 16:00, כ-7 אירו למבוגר.'},
+  {area:'ליד Tri Studničky', name:'AquaCity Poprad', desc:'פארק מים ומרחצאות תרמיים מקורים ופתוחים.'},
+  {area:'ליפטוב', name:'Bešeňová — Ginö Paradise', desc:'הריכוז הגדול ביותר של מעיינות חמים בסלובקיה (33 מעיינות): בריכות גיאותרמיות, 5 סאונות, ג׳קוזי בחוץ.'},
+  {area:'ליד ז׳ילינה', name:'Aphrodite Spa, רג׳צקה טפליצה', desc:'בריכות גיאותרמיות בפנים ובחוץ, מגוון סאונות, מסאז׳ים וטיפולי יופי.'},
+  {area:'ליפטוב', name:'טירת אורבה (Orava Castle)', desc:'מצוק גבוה מעל נהר אורבה — נחשבת לאחת המצודות היפות בסלובקיה, כולל סיור מודרך.'},
+  {area:'ליפטוב', name:'מוזיאון פולקלור פתוח — פריבילינה', desc:'מבנים היסטוריים ששוחזרו מהכפרים באזור, הצגת חיי הכפריים בליפטוב.'},
+  {area:'גן העדן הסלובקי', name:'מערת הקרח דובשינסקה', desc:'אתר מורשת עולמי של אונסק"ו, בדרום גן העדן הסלובקי.'},
+  {area:'ליד Podlesok', name:'טירת ספיש (Spišský hrad) + לבוצ׳ה', desc:'אחת המצודות הגדולות באירופה, לצד העיר ההיסטורית הציורית Levoča.'},
+  {area:'פופרד', name:'קניון Forum Poprad', desc:'מתחם קניות מקורה עם חנויות ובתי קפה.'},
+  {area:'צפון מזרח', name:'טירת סטארה לובובניה', desc:'מבצר מימי הביניים עם כפר-מוזיאון סקנזן למרגלותיו.'},
+  {area:'קרקוב', name:'Rynek Underground Museum', desc:'מוזיאון תת-קרקעי מרתק מתחת לכיכר השוק המרכזית.'},
+  {area:'קרקוב', name:'מוזיאון מפעל שינדלר', desc:'תערוכה על קרקוב תחת הכיבוש הנאצי, במפעלו לשעבר של אוסקר שינדלר.'},
+];
+
+/* ===================== Rendering ===================== */
+function el(tag, cls, html){ const e=document.createElement(tag); if(cls) e.className=cls; if(html!==undefined) e.innerHTML=html; return e; }
+
+// Stepper
+const stepperWrap = document.getElementById('stepper');
+stepperDays.forEach(s=>{
+  const d = el('div','step'+(s.travel?' travel':''));
+  d.innerHTML = `<div class="line"></div><div class="dot"></div><div class="day-num">${s.travel? s.n : 'יום '+s.n}</div><div class="day-date">${s.date}</div><div class="day-loc">${s.loc}</div><div class="day-tag">${s.tag}</div>`;
+  stepperWrap.appendChild(d);
+});
+
+// Timeline
+const timeline = document.getElementById('timeline');
+days.forEach(d=>{
+  const card = el('div','day-card'+(d.travel?' travel':''));
+  let statsHtml = '';
+  if(d.stats && d.stats.length){
+    statsHtml = `<div class="stat-row">${d.stats.map(s=>`<div class="stat">${s[0]}: <b>${s[1]}</b></div>`).join('')}</div>`;
+  }
+  let optsHtml = '';
+  if(d.opts){
+    optsHtml = d.opts.map(o=>`<div class="opt-block"><span class="opt-label">${o[0]}</span>${o[1]}</div>`).join('');
+  }
+  let foodHtml = '';
+  if(d.food && d.food.length){
+    foodHtml = d.food.map(f=>`<div class="food-line"><span class="ic">${f[0]}</span><span>${f[1]}</span></div>`).join('');
+  }
+  let rainHtml = '';
+  if(d.rain){
+    rainHtml = `<details class="rain"><summary>חלופה ליום גשום</summary><p>${d.rain}</p></details>`;
+  }
+  card.innerHTML = `
+    <div class="day-badge"><span>יום</span>${d.day}</div>
+    <div class="day-body">
+      <div class="day-head">
+        <span class="when">${d.date}</span>
+        <span class="day-hotel${d.travel?' travel-tag':''}">🏨 ${d.hotel}</span>
+      </div>
+      <div class="day-title">${d.title}${d.mustDo?' <span class="must-star">⭐</span>':''}</div>
+      <div class="day-text">${d.text}</div>
+      ${statsHtml}
+      ${optsHtml}
+      ${foodHtml}
+      ${rainHtml}
+    </div>`;
+  timeline.appendChild(card);
+});
+
+// Routes
+const regionLabel = {raj:'גן העדן הסלובקי', 'high-tatras':'הטטרה הגבוהים', 'low-tatras':'הטטרה הנמוכים', fatra:'הפטרה הקטנים'};
+const diffLabel = {easy:'קל', medium:'בינוני', hard:'מאתגר'};
+const routesGrid = document.getElementById('routesGrid');
+const countNote = document.getElementById('countNote');
+
+function renderRoutes(){
+  const search = document.getElementById('searchInput').value.trim().toLowerCase();
+  const region = document.querySelector('[data-filter="region"].active').dataset.value;
+  const diff = document.querySelector('[data-filter="difficulty"].active').dataset.value;
+  const mustOnly = document.getElementById('mustDoBtn').classList.contains('active');
+
+  const filtered = routes.filter(r=>{
+    if(region!=='all' && r.region!==region) return false;
+    if(diff!=='all' && r.difficulty!==diff) return false;
+    if(mustOnly && !r.mustDo) return false;
+    if(search && !(r.name.toLowerCase().includes(search) || r.en.toLowerCase().includes(search))) return false;
+    return true;
+  });
+
+  countNote.textContent = `מציג ${filtered.length} מתוך ${routes.length} מסלולים`;
+  routesGrid.innerHTML = '';
+  filtered.forEach(r=>{
+    const card = el('article','route-card');
+    card.innerHTML = `
+      <div class="route-top">
+        ${r.mustDo?'<span class="badge must">⭐ מסלול חובה</span>':''}
+        <span class="badge region-${r.region}">${regionLabel[r.region]}</span>
+        <span class="badge diff-${r.difficulty}">${diffLabel[r.difficulty]}</span>
+        <span class="mark-note">${r.marking}</span>
+      </div>
+      <h3>${r.n}. ${r.name} <span style="color:var(--ink-faint); font-weight:400; font-size:.75em;">${r.en}</span></h3>
+      <p class="route-desc">${r.desc}</p>
+      <div class="route-stats">
+        <div>אורך<b>${r.length}</b></div>
+        <div>משך הליכה<b>${r.duration}</b></div>
+        <div>אופי<b>${r.character}</b></div>
+        <div>יציאה<b>${r.trailhead}</b></div>
+      </div>
+      <div class="route-detail-grid">
+        <div class="detail-box"><span class="lbl">🍽️ אוכל במסלול</span>${r.foodRoute}</div>
+        <div class="detail-box"><span class="lbl">🌆 מסעדה בערב</span>${r.foodEve}</div>
+        <div class="detail-box rainbox"><span class="lbl">☔ חלופה ליום גשום</span>${r.rain}</div>
+      </div>`;
+    routesGrid.appendChild(card);
+  });
+}
+
+document.querySelectorAll('[data-filter]').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const group = btn.dataset.filter;
+    document.querySelectorAll(`[data-filter="${group}"]`).forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('mustDoBtn').classList.remove('active');
+    renderRoutes();
+  });
+});
+document.getElementById('mustDoBtn').addEventListener('click', function(){
+  this.classList.toggle('active');
+  if(this.classList.contains('active')){
+    document.querySelectorAll('[data-filter]').forEach(b=>{ if(b.dataset.value==='all') b.classList.add('active'); else b.classList.remove('active'); });
+  }
+  renderRoutes();
+});
+document.getElementById('searchInput').addEventListener('input', renderRoutes);
+renderRoutes();
+
+// Food
+const foodGroupsEl = document.getElementById('foodGroups');
+foodGroups.forEach(g=>{
+  const box = el('div','food-group');
+  box.innerHTML = `<h3>${g.area.split('·')[0].trim()}</h3><span class="area-tag">${g.area.includes('·')? g.area.split('·')[1].trim():''}</span>` +
+    g.items.map(it=>`<div class="food-item"><div class="fname">${it[0]}</div><div class="fnote">${it[1]}</div></div>`).join('');
+  foodGroupsEl.appendChild(box);
+});
+
+// Info accordion
+const infoData = [
+  {title:'🚗 נהיגה בסלובקיה, אגרות וטיפים', open:true, body:`
+    <p>ברחבי המדינה ארבעה כבישי אוטוסטרדה (D1–D4) ושמונה דרכים מהירות (R1–R8), כולם כבישי אגרה.</p>
+    <ul>
+      <li><strong>ויניאטה</strong> — מדבקת אגרה דיגיטלית חובה. עלות: כ-10€ ל-10 ימים, 14€ לחודש, 50€ לשנה. ניתן לרכוש בתחנות דלק, בדואר הסלובקי או אונליין — לפעמים כלולה כבר בהשכרת הרכב, כדאי לוודא מול חברת ההשכרה.</li>
+      <li><strong>מהירות מותרת:</strong> דרך עירונית 50 קמ"ש · בין-עירונית 90 קמ"ש · דרך מהירה 130 קמ"ש.</li>
+      <li>יש לנסוע תמיד עם אורות דולקים, בכל עונות השנה, ואין להשתמש בטלפון בזמן הנהיגה.</li>
+      <li>נדרש רישיון נהיגה בינלאומי בתוקף בנוסף לרישיון הישראלי (ניתן להוציא בסניפי דואר ישראל, עלות כ-20 ₪).</li>
+      <li>ניווט מומלץ: Waze או Google Maps. כדאי להוריד מראש חבילת תרגום סלובקית-עברית וכן מפת סלובקיה במצב אופליין.</li>
+    </ul>
+    <div class="tbl-wrap"><table class="fine-table">
+      <tr><th>חריגת מהירות</th><th>קנס משוער</th></tr>
+      <tr><td>20 קמ"ש</td><td>כ-70 €</td></tr>
+      <tr><td>30 קמ"ש</td><td>כ-100 €</td></tr>
+      <tr><td>40 קמ"ש</td><td>כ-200 €</td></tr>
+      <tr><td>75 קמ"ש</td><td>כ-800 €</td></tr>
+    </table></div>
+    <p>לעיתים השוטר ידרוש תשלום מקומי (אשראי או מזומן) — יש לוודא קבלה חתומה על תשלום הקנס.</p>
+  `},
+  {title:'🎒 ציוד ולבוש מומלץ', body:`
+    <ul>
+      <li>מזג האוויר בהרים הפכפך ולא צפוי — כדאי להתלבש בשיטת הבצל: ביגוד דק וקייצי, קפוצ׳ון ומעיל נגד גשם מתקפל.</li>
+      <li>בפסגות, במערות ובמרחבים הפתוחים עשוי להיות קר (אפילו כ-10° בימים גשומים).</li>
+      <li>נעלי הליכה סגורות, נוחות ואטומות למים — חלק מהמסלולים חוצים נחלים ויש סיכוי להירטב.</li>
+      <li>תרמיל גב קטן, מים, חטיפים/כריכים, ומקלות הליכה למסלולים ארוכים או תלולים.</li>
+      <li>מפות פיזיות בקנה מידה 1:50,000 או 1:25,000 זמינות בלשכות מידע, במלונות ובקיוסקים אזוריים.</li>
+    </ul>
+  `},
+  {title:'💶 תקציב משוער', body:`
+    <div class="budget-box"><span class="amt">~600€</span><span>לזוג, לכל אורך התוכנית המוצעת</span></div>
+    <p>הסכום כולל: חניה, כניסה לאתרים, עלייה ברכבלים, ארוחה יומית במסעדה מקומית, כרטיס סים וקניות בסופרמרקט. <strong>אינו כולל</strong> את עלויות המלון, השכרת הרכב והדלק.</p>
+    <p>כרטיס סים סלובקי ניתן לרכוש בסניפי Tesco.</p>
+  `},
+  {title:'🥾 סימון שבילים בהרים', body:`
+    <p>שבילי ההליכה בסלובקיה מסומנים בצבעים — אדום, כתום, ירוק, צהוב וכחול — בדומה לסימון המוכר בישראל. השילוט לאורך המסלול מציין כיוונים, יעדים ומרחקי זמן הליכה בין נקודות, כך שגם ללא GPS אפשר להתמצא בקלות יחסית.</p>
+    <p>שימו לב: חלק מהמסלולים בקניונים הם חד-סטריים (אין אפשרות לחזור באותה הדרך) — מפורט בכל כרטיס מסלול למעלה.</p>
+  `},
+];
+const infoGrid = document.getElementById('infoGrid');
+infoData.forEach(it=>{
+  const d = el('details','info-item');
+  if(it.open) d.setAttribute('open','');
+  d.innerHTML = `<summary>${it.title}<span class="chevron">▾</span></summary><div class="info-body">${it.body}</div>`;
+  infoGrid.appendChild(d);
+});
+
+// Rain grid
+const rainGrid = document.getElementById('rainGrid');
+rainAlts.forEach(r=>{
+  const c = el('div','rain-card');
+  c.innerHTML = `<span class="tag">${r.area}</span><h3>${r.name}</h3><p>${r.desc}</p>`;
+  rainGrid.appendChild(c);
+});
+</script>
+</body>

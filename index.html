@@ -1,5 +1,4 @@
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>סלובקיה 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -115,9 +114,7 @@ section+section{border-top:1px solid var(--line);}
 /* ===================== Top nav ===================== */
 .topbar{
   position:sticky; top:0; z-index:50;
-  background:var(--paper);
   background:color-mix(in srgb, var(--paper) 88%, transparent);
-  -webkit-backdrop-filter:blur(10px);
   backdrop-filter:blur(10px);
   border-bottom:1px solid var(--line);
 }
@@ -128,27 +125,13 @@ section+section{border-top:1px solid var(--line);}
 }
 .brand{font-family:"Frank Ruhl Libre",serif; font-weight:700; font-size:1.05rem; color:var(--forest-deep); white-space:nowrap;}
 .brand small{display:block; font-family:"Heebo",sans-serif; font-weight:400; font-size:.68rem; color:var(--ink-faint); letter-spacing:.04em;}
-.tabs-wrap{position:relative; flex:1; min-width:0;}
-nav.tabs{display:flex; gap:4px; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none;}
+nav.tabs{display:flex; gap:4px; overflow-x:auto; scrollbar-width:none;}
 nav.tabs::-webkit-scrollbar{display:none;}
 nav.tabs a{
   white-space:nowrap; text-decoration:none; color:var(--ink-soft); font-size:.86rem; font-weight:600;
   padding:8px 12px; border-radius:999px; transition:background .15s, color .15s;
 }
 nav.tabs a:hover{background:var(--paper-raised); color:var(--forest-deep);}
-@media (max-width:760px){
-  .topbar-inner{height:auto; flex-wrap:wrap; padding:10px 14px; gap:8px;}
-  .brand small{display:none;}
-  .print-btn{order:2; padding:6px 10px; font-size:.72rem;}
-  .tabs-wrap{order:3; flex-basis:100%; width:100%;}
-  nav.tabs{gap:2px;}
-  nav.tabs a{padding:7px 10px; font-size:.8rem;}
-  .tabs-wrap::before, .tabs-wrap::after{
-    content:""; position:absolute; top:0; bottom:0; width:18px; z-index:2; pointer-events:none;
-  }
-  .tabs-wrap::before{right:0; background:linear-gradient(to left, var(--paper), transparent);}
-  .tabs-wrap::after{left:0; background:linear-gradient(to right, var(--paper), transparent);}
-}
 .print-btn{
   border:1px solid var(--line); background:var(--paper-raised); color:var(--ink-soft);
   border-radius:999px; padding:7px 14px; font-size:.8rem; font-weight:600; cursor:pointer;
@@ -167,7 +150,7 @@ nav.tabs a:hover{background:var(--paper-raised); color:var(--forest-deep);}
 .hero-meta .row .v{font-weight:700; color:var(--forest-deep); font-variant-numeric:tabular-nums;}
 
 /* journey stepper */
-.stepper-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:6px;}
+.stepper-wrap{overflow-x:auto; padding-bottom:6px;}
 .stepper{
   display:flex; align-items:flex-start; gap:0; min-width:640px; position:relative; padding-top:6px;
 }
@@ -238,7 +221,7 @@ nav.tabs a:hover{background:var(--paper-raised); color:var(--forest-deep);}
 .stat{font-size:.8rem; color:var(--ink-soft); display:flex; gap:5px; align-items:baseline;}
 .stat b{color:var(--ink); font-weight:700;}
 
-.opt-block{border-right:3px solid var(--moss); padding:4px 14px; margin:12px 0; background:var(--paper); background:color-mix(in srgb, var(--moss) 8%, transparent); border-radius:0 8px 8px 0;}
+.opt-block{border-right:3px solid var(--moss); padding:4px 14px; margin:12px 0; background:color-mix(in srgb, var(--moss) 8%, transparent); border-radius:0 8px 8px 0;}
 .opt-block .opt-label{font-weight:700; font-size:.82rem; color:var(--forest-deep); display:block; margin-bottom:3px;}
 
 .food-line{font-size:.85rem; margin:6px 0; display:flex; gap:8px;}
@@ -319,7 +302,7 @@ table.fine-table{width:100%; border-collapse:collapse; font-size:.85rem; margin:
 table.fine-table th, table.fine-table td{text-align:right; padding:8px 10px; border-bottom:1px solid var(--line);}
 table.fine-table th{color:var(--ink-faint); font-weight:700; font-size:.76rem; text-transform:uppercase; letter-spacing:.04em;}
 table.fine-table td{font-variant-numeric:tabular-nums; font-weight:600;}
-.tbl-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch;}
+.tbl-wrap{overflow-x:auto;}
 .budget-box{display:flex; align-items:baseline; gap:10px; background:var(--paper); border:1px solid var(--line); border-radius:10px; padding:14px 16px; margin:10px 0;}
 .budget-box .amt{font-family:"Frank Ruhl Libre",serif; font-size:1.7rem; font-weight:700; color:var(--forest-deep); font-variant-numeric:tabular-nums;}
 
@@ -345,15 +328,13 @@ footer{padding:36px 0 60px; text-align:center; color:var(--ink-faint); font-size
 <div class="topbar">
   <div class="topbar-inner">
     <div class="brand">סלובקיה 2026<small>23–29 בספטמבר</small></div>
-    <div class="tabs-wrap">
-      <nav class="tabs">
-        <a href="javascript:void(0)" data-scroll-to="itinerary">לוח הטיול</a>
-        <a href="javascript:void(0)" data-scroll-to="routes">מסלולי הליכה</a>
-        <a href="javascript:void(0)" data-scroll-to="food">מסעדות</a>
-        <a href="javascript:void(0)" data-scroll-to="info">מידע מעשי</a>
-        <a href="javascript:void(0)" data-scroll-to="rain">ימים גשומים</a>
-      </nav>
-    </div>
+    <nav class="tabs">
+      <a href="#itinerary">לוח הטיול</a>
+      <a href="#routes">מסלולי הליכה</a>
+      <a href="#food">מסעדות</a>
+      <a href="#info">מידע מעשי</a>
+      <a href="#rain">ימים גשומים</a>
+    </nav>
     <button class="print-btn" onclick="window.print()">🖨️ הדפסה</button>
   </div>
 </div>
@@ -446,19 +427,12 @@ footer{padding:36px 0 60px; text-align:center; color:var(--ink-faint); font-size
 <footer>מסמך אישי לטיול המשפחתי · נאסף מכמה מדריכים ומסלולים · ספטמבר 2026</footer>
 
 <script>
-document.querySelectorAll('[data-scroll-to]').forEach(a=>{
-  a.addEventListener('click', function(e){
-    e.preventDefault();
-    const target = document.getElementById(this.dataset.scrollTo);
-    if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
-  });
-});
 /* ===================== DATA ===================== */
 const stepperDays = [
   {n:'✈', date:'23.9', loc:'קרקוב', tag:'נחיתה', travel:true},
   {n:1, date:'23.9', loc:'Tri Studničky', tag:'הגעה'},
-  {n:2, date:'24.9', loc:'Tri Studničky', tag:'האגם הירוק'},
-  {n:3, date:'25.9', loc:'Tri Studničky', tag:'סוחה בלה'},
+  {n:2, date:'24.9', loc:'Tri Studničky', tag:'סוחה בלה'},
+  {n:3, date:'25.9', loc:'Tri Studničky', tag:'האגם הירוק'},
   {n:4, date:'26.9', loc:'Patria', tag:'מעבר מלון'},
   {n:5, date:'27.9', loc:'Patria', tag:'יום בחירה'},
   {n:6, date:'28.9', loc:'קרקוב', tag:'העברה'},
@@ -473,18 +447,18 @@ const days = [
     food:[['🍽️','ארוחת ערב במסעדת המלון או במסעדה מקומית באזור (למשל Route 66 בליפטובסקי מיקולש)']],
   },
   {
-    day:2, date:'24.9 · יום חמישי', title:'הרי הטטרה הגבוהים: האגם הירוק', mustDo:true, hotel:'Tri Studničky',
-    text:`יציאה מחניון <strong>Biela Voda</strong> (כ-35–40 דקות נסיעה מהמלון). עלייה מתונה ונוחה לאורך ערוץ נחל Biela Voda ביער (שביל צהוב), הנפתחת לנופים אלפיניים ומסתיימת בבקתת ההרים הציורית <strong>Chata pri Zelenom plese</strong> על שפת אגם הטורקיז.`,
-    stats:[['אורך','כ-15 ק"מ הלוך-חזור'],['קושי','בינונית (עלייה מתונה)'],['משך','5–5.5 שעות']],
-    food:[['🍲','Chata pri Zelenom plese — מרקים חמים, תבשילים סלובקיים ובירה אלפינית'],['🌆','בערב: Koliba Kamzík בסטארי סמוקובץ / Koliba Patria']],
-    rain:'ביקור במערת הנטיפים דמנובסקה (מערת החירות — קרובה מאוד למלון) וסיום במרחצאות התרמיים המקורים AquaCity Poprad או מרחצאות Bešeňová.'
-  },
-  {
-    day:3, date:'25.9 · יום שישי', title:'גן העדן הסלובקי: קניון סוחה בלה', mustDo:true, hotel:'Tri Studničky',
+    day:2, date:'24.9 · יום חמישי', title:'גן העדן הסלובקי: קניון סוחה בלה', mustDo:true, hotel:'Tri Studničky',
     text:`יציאה מחניון <strong>Hrabušice–Podlesok</strong> (כ-45 דקות נסיעה מהמלון). טיפוס אתגרי בתוך קניון <strong>Suchá Belá</strong> באמצעות סולמות ברזל, גשרים ומעברים מעל מפלים (סימון ירוק). מראש הקניון ממשיכים לכיוון <strong>Kláštorisko</strong> (שרידי מנזר) ויורדים בשביל מעגלי חזרה לחניון.`,
     stats:[['אורך','כ-9.4 ק"מ מעגלי'],['קושי','מאתגרת (סולמות, בטוח)'],['משך','כ-4.5 שעות']],
     food:[['🥪','מזנון קל בכניסה ב-Podlesok, ובאמצע הדרך מסעדה בשרידי מנזר Kláštorisko'],['🌆','בערב: Route 66 בליפטובסקי מיקולש / מסעדת המלון']],
     rain:'סיור בטירת ספיש (Spišský hrad) בעיירה הציורית לבוצ׳ה (Levoča), או שופינג במתחם המקורה Forum Poprad.'
+  },
+  {
+    day:3, date:'25.9 · יום שישי', title:'הרי הטטרה הגבוהים: האגם הירוק', mustDo:true, hotel:'Tri Studničky',
+    text:`יציאה מחניון <strong>Biela Voda</strong> (כ-35–40 דקות נסיעה מהמלון). עלייה מתונה ונוחה לאורך ערוץ נחל Biela Voda ביער (שביל צהוב), הנפתחת לנופים אלפיניים ומסתיימת בבקתת ההרים הציורית <strong>Chata pri Zelenom plese</strong> על שפת אגם הטורקיז.`,
+    stats:[['אורך','כ-15 ק"מ הלוך-חזור'],['קושי','בינונית (עלייה מתונה)'],['משך','5–5.5 שעות']],
+    food:[['🍲','Chata pri Zelenom plese — מרקים חמים, תבשילים סלובקיים ובירה אלפינית'],['🌆','בערב: Koliba Kamzík בסטארי סמוקובץ / Koliba Patria']],
+    rain:'ביקור במערת הנטיפים דמנובסקה (מערת החירות — קרובה מאוד למלון) וסיום במרחצאות התרמיים המקורים AquaCity Poprad או מרחצאות Bešeňová.'
   },
   {
     day:4, date:'26.9 · יום שבת', title:'מעבר למלון Patria: מפלי סקוק ואגם פופרד', mustDo:true, hotel:'Patria',

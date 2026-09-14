@@ -226,8 +226,8 @@ nav.tabs a:hover{background:var(--paper-raised); color:var(--forest-deep);}
 
 .gpx-btn{
   display:inline-flex; align-items:center; gap:6px; font-size:.78rem; font-weight:700;
-  color:var(--forest-deep); background:var(--easy-bg); border:1px solid transparent;
-  border-radius:999px; padding:6px 13px; text-decoration:none; margin-top:10px; transition:.15s;
+  font-family:inherit; color:var(--forest-deep); background:var(--easy-bg); border:1px solid transparent;
+  border-radius:999px; padding:6px 13px; text-decoration:none; margin-top:10px; transition:.15s; cursor:pointer;
 }
 .gpx-btn:hover{border-color:var(--forest);}
 
@@ -698,6 +698,28 @@ const rainAlts = [
 /* ===================== Rendering ===================== */
 function el(tag, cls, html){ const e=document.createElement(tag); if(cls) e.className=cls; if(html!==undefined) e.innerHTML=html; return e; }
 
+function downloadGpx(key, filename){
+  const dataUri = gpxFiles[key];
+  if(!dataUri) return;
+  try{
+    const base64 = dataUri.split(',')[1];
+    const binary = atob(base64);
+    const bytes = new Uint8Array(binary.length);
+    for(let i=0;i<binary.length;i++) bytes[i] = binary.charCodeAt(i);
+    const blob = new Blob([bytes], {type:'application/gpx+xml'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(()=>URL.revokeObjectURL(url), 2000);
+  }catch(err){
+    // Fallback: open the raw data URI if Blob approach fails for any reason
+    window.open(dataUri, '_blank');
+  }
+}
+
 // Stepper
 const stepperWrap = document.getElementById('stepper');
 stepperDays.forEach(s=>{
@@ -758,7 +780,7 @@ days.forEach(d=>{
   }
   let optsHtml = '';
   if(d.opts){
-    optsHtml = d.opts.map(o=>`<div class="opt-block"><span class="opt-label">${o[0]}</span>${o[1]}${o[2]&&gpxFiles[o[2]]?`<br><a class="gpx-btn" href="${gpxFiles[o[2]]}" download="${o[0].replace(/[^\wא-ת]+/g,'_')}.gpx">🗺️ הורדת GPX למסלול</a>`:''}</div>`).join('');
+    optsHtml = d.opts.map(o=>`<div class="opt-block"><span class="opt-label">${o[0]}</span>${o[1]}${o[2]&&gpxFiles[o[2]]?`<br><button class="gpx-btn" onclick="downloadGpx('${o[2]}','${o[0].replace(/[^\wא-ת]+/g,'_')}.gpx')">🗺️ הורדת GPX למסלול</button>`:''}</div>`).join('');
   }
   let foodHtml = '';
   if(d.food && d.food.length){
@@ -770,7 +792,7 @@ days.forEach(d=>{
   }
   let gpxHtml = '';
   if(d.gpx && gpxFiles[d.gpx]){
-    gpxHtml = `<a class="gpx-btn" href="${gpxFiles[d.gpx]}" download="${d.title.replace(/[^\wא-ת]+/g,'_')}.gpx">🗺️ הורדת GPX למסלול</a>`;
+    gpxHtml = `<button class="gpx-btn" onclick="downloadGpx('${d.gpx}','${d.title.replace(/[^\wא-ת]+/g,'_')}.gpx')">🗺️ הורדת GPX למסלול</button>`;
   }
   card.innerHTML = `
     <div class="day-badge"><span>יום</span>${d.day}</div>
@@ -850,7 +872,7 @@ function renderRoutes(){
         <div class="detail-box"><span class="lbl">🌆 מסעדה בערב</span>${r.foodEve}</div>
         <div class="detail-box rainbox"><span class="lbl">☔ חלופה ליום גשום</span>${r.rain}</div>
       </div>
-      ${r.gpx && gpxFiles[r.gpx] ? `<a class="gpx-btn" href="${gpxFiles[r.gpx]}" download="${r.en.replace(/[^\wא-ת]+/g,'_')}.gpx">🗺️ הורדת GPX למסלול</a>` : ''}`;
+      ${r.gpx && gpxFiles[r.gpx] ? `<button class="gpx-btn" onclick="downloadGpx('${r.gpx}','${r.en.replace(/[^\wא-ת]+/g,'_')}.gpx')">🗺️ הורדת GPX למסלול</button>` : ''}`;
     routesGrid.appendChild(card);
   });
 }

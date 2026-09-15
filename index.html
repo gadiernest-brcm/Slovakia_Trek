@@ -231,6 +231,13 @@ nav.tabs a:hover{background:var(--paper-raised); color:var(--forest-deep);}
 }
 .gpx-btn:hover{border-color:var(--forest);}
 
+.krakow-guide{margin-top:18px; display:grid; gap:16px;}
+.krakow-cat h4{font-size:.9rem; font-weight:700; color:var(--forest-deep); margin-bottom:8px; display:flex; align-items:center; gap:6px;}
+.krakow-list{display:grid; gap:8px;}
+.krakow-list .k-item{background:var(--paper-raised); border:1px solid var(--line); border-radius:10px; padding:10px 13px;}
+.krakow-list .k-name{font-weight:700; font-size:.85rem; margin-bottom:2px;}
+.krakow-list .k-note{font-size:.82rem; color:var(--ink-soft); line-height:1.5;}
+
 .food-line{font-size:.85rem; margin:6px 0; display:flex; gap:8px;}
 .food-line .ic{flex:none;}
 
@@ -546,7 +553,34 @@ const days = [
     text:`צ'ק־אאוט מוקדם ב-08:30 ממלון Patria, נסיעה של כ-2.5 שעות לקרקוב. יום שלם בעיר העתיקה (Stare Miasto), כיכר השוק המרכזית, מצודת ואוול (Wawel) והרובע היהודי (Kazimierz).`,
     stats:[],
     food:[],
-    rain:'סיור במוזיאון התת-קרקעי מתחת לכיכר השוק (Rynek Underground) או במוזיאון מפעל שינדלר.'
+    rain:'סיור במוזיאון התת-קרקעי מתחת לכיכר השוק (Rynek Underground) או במוזיאון מפעל שינדלר.',
+    krakow:{
+      sights:[
+        ['כיכר השוק הראשית (Rynek Główny) + בזיליקת מריה הקדושה','לב העיר העתיקה — כיכר ימי הביניים הגדולה באירופה. שווה לתפוס את קריאת החצוצרה (Hejnał) מצריח הבזיליקה בכל שעה עגולה, שנקטעת באמצע לזכר הטרומפטר האגדי.'],
+        ['אולם האריגים (Sukiennice / Cloth Hall)','הבניין הארוך במרכז הכיכר — "קניון" בן 700 שנה, קומת קרקע עם דוכני מזכרות וקומה עליונה עם גלריית ציור פולנית.'],
+        ['מצודת ואוול (Wawel Castle & Cathedral)','מתחם הטירה והקתדרלה על גבעה מעל נהר וויסלה — מקום ההכתרה ההיסטורי של מלכי פולין, ותצפית יפה על הנהר.'],
+        ['הרובע היהודי קזימייז׳ (Kazimierz)','רובע אטמוספרי עם בתי כנסת עתיקים, גלריות אמנות וכיכר Plac Nowy התוססת עם דוכני רחוב — מומלץ להגיע לשעות אחר הצהריים/ערב.'],
+      ],
+      cafes:[
+        ['Camelot Cafe','העיר העתיקה, Świętego Tomasza 17 — בית קפה וינטג׳ מיוחד (לשעבר בית בושת!) עם עוגות ותה, פרוס על 3 חדרים.'],
+        ['Massolit Books & Cafe','ליד העיר העתיקה — שילוב חנות ספרים באנגלית (כ-20,000 כותרים) וקפה, מאפים אמריקאיים ותה — מקום נעים לעצירה שקטה.'],
+        ['Cheder','קזימייז׳, Józefa 36 — בית קפה במורשת יהודית, קפה פינג׳אן ומזה מזרח תיכוני, אווירה חמה עם כורסאות וספרים.'],
+        ['Cafe Szał','על גג אולם האריגים — תצפית ישירה על הכיכר הראשית, מקום מעולה להפסקה באמצע הסיור.'],
+      ],
+      restaurants:[
+        ['Miód Malina','העיר העתיקה — מסעדה פולנית קלאסית ואמינה, בישול ביתי ברמה גבוהה.'],
+        ['Czarna Kaczka (The Black Duck)','העיר העתיקה — ברווז פולני מסורתי ומטבח פולני איכותי, קצת יקר אך מומלץ מאוד.'],
+        ['Starka','קזימייז׳, Szewska 23 — וודקה תוצרת בית ומטבח פולני-יהודי, אווירה כפרית ואינטימית.'],
+        ['Bar Mleczny Pod Temidą','העיר העתיקה, Sławkowska — "בר חלב" קלאסי מתקופת הקומוניזם: פירוגי, בורשט ואוכל פולני ביתי במחירים מפתיעים.'],
+        ['זאפייקנקה בכיכר Plac Nowy','קזימייז׳ — אוכל הרחוב האייקוני של קרקוב: לחמנייה ארוכה עם פטריות, גבינה ותוספות, מדוכני הכיכר.'],
+      ],
+      shopping:[
+        ['אולם האריגים (Sukiennice)','במרכז הכיכר הראשית — ענבר, תחרה, מלאכת יד ומזכרות קרקוביות קלאסיות, במחירים סבירים יחסית.'],
+        ['רחוב Floriańska','הרחוב הראשי בין שער פלוריאן לכיכר — שפע חנויות אופנה ומזכרות, אך שימו לב לחנויות תיירותיות פחות איכותיות.'],
+        ['Galeria Krakowska','ממש ליד תחנת הרכבת המרכזית — קניון מודרני עם כ-270 חנויות, מותגים בינלאומיים, פתוח עד 22:00 (למעט ראשון).'],
+        ['שוק Plac Nowy','קזימייז׳ — שוק פתוח אותנטי עם בגדי יד שנייה, אמנות מקומית ודוכני אוכל רחוב.'],
+      ],
+    }
   },
   {
     day:7, date:'29.9 · יום שלישי', title:'סיום הטיול וטיסה חזרה', hotel:'קרקוב', travel:true, routeRef:[],
@@ -794,6 +828,22 @@ days.forEach(d=>{
   if(d.gpx && gpxFiles[d.gpx]){
     gpxHtml = `<button class="gpx-btn" onclick="downloadGpx('${d.gpx}','${d.title.replace(/[^\wא-ת]+/g,'_')}.gpx')">🗺️ הורדת GPX למסלול</button>`;
   }
+  let krakowHtml = '';
+  if(d.krakow){
+    const cat = (title, icon, list) => `
+      <div class="krakow-cat">
+        <h4>${icon} ${title}</h4>
+        <div class="krakow-list">
+          ${list.map(it=>`<div class="k-item"><div class="k-name">${it[0]}</div><div class="k-note">${it[1]}</div></div>`).join('')}
+        </div>
+      </div>`;
+    krakowHtml = `<div class="krakow-guide">
+      ${cat('מה לראות', '🏛️', d.krakow.sights)}
+      ${cat('בתי קפה מומלצים', '☕', d.krakow.cafes)}
+      ${cat('מסעדות מומלצות', '🍽️', d.krakow.restaurants)}
+      ${cat('קניות', '🛍️', d.krakow.shopping)}
+    </div>`;
+  }
   card.innerHTML = `
     <div class="day-badge"><span>יום</span>${d.day}</div>
     <div class="day-body">
@@ -808,6 +858,7 @@ days.forEach(d=>{
       ${gpxHtml}
       ${foodHtml}
       ${rainHtml}
+      ${krakowHtml}
     </div>`;
   timeline.appendChild(card);
 });
